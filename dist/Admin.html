@@ -66,10 +66,69 @@
                             </div>
                         </div>
                     </div>
-                </div>                
-            </main>  
-            <div id="footer"></div>          
+                </div>
+            </main>
+            <div id="footer"></div>
         </div>
+    </div>
+
+
+    <!-- Employee Modal -->
+
+    <div class="modal fade" id="myModal">
+        <form method="post" action="ImportEmpExcel.php" enctype="multipart/form-data">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <!-- Modal Header -->
+                    <div class="modal-header">
+                        <h4 class="modal-title">Import Excel Data </h4>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+                    <!-- Modal body -->
+                    <div class="modal-body">
+                        <b>Input Excel File...!!!</b><br>
+                        <input type="file" name="file" />
+                        <br>
+
+                    </div>
+                    <!-- Modal footer -->
+                    <div class="modal-footer">
+                        <input class="btn btn-success" type="submit" name="Upload" value="Upload"
+                            style="float:right;" />
+                    </div>
+
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <!-- Attandance Modal -->
+
+    <div class="modal fade" id="AttendanceModal">
+        <form method="post" action="ImportAttendanceExcel.php" enctype="multipart/form-data">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <!-- Modal Header -->
+                    <div class="modal-header">
+                        <h4 class="modal-title">Import Excel Data </h4>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+                    <!-- Modal body -->
+                    <div class="modal-body">
+                        <b>Input Excel File...!!!</b><br>
+                        <input type="file" name="file" />
+                        <br>
+
+                    </div>
+                    <!-- Modal footer -->
+                    <div class="modal-footer">
+                        <input class="btn btn-success" type="submit" name="UploadAt" value="Upload"
+                            style="float:right;" />
+                    </div>
+
+                </div>
+            </div>
+        </form>
     </div>
 
 
