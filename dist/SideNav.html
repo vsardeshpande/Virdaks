@@ -3,7 +3,7 @@
         <div class="sb-sidenav-menu">
             <div class="nav">
                 <div class="sb-sidenav-menu-heading">Core</div>
-                <a class="nav-link" href="index.html"
+                <a class="nav-link" href="Admin.html"
                     ><div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                     Dashboard</a
                 >
@@ -17,6 +17,7 @@
                 </a>
                 <div class="collapse" id="collapsePages" aria-labelledby="headingTwo" data-parent="#sidenavAccordion">
                     <nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionPages">
+<<<<<<< HEAD
                         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#pagesCollapseAuth"
                             aria-expanded="false" aria-controls="pagesCollapseAuth">Add Employee
                             <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div></a>
@@ -26,6 +27,14 @@
                                     >Import File</a><a class="nav-link"
                                     href="AddEmployee.html">Add Manually</a><a class="nav-link"
                                     href="password.html">Register</a></nav>
+=======
+                        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#pagesCollapseAuth" aria-expanded="false" aria-controls="pagesCollapseAuth"
+                            >Add Employee
+                            <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div
+                        ></a>
+                        <div class="collapse" id="pagesCollapseAuth" aria-labelledby="headingOne" data-parent="#sidenavAccordionPages">
+                            <nav class="sb-sidenav-menu-nested nav"><a class="nav-link" href="login.html">Import File</a><a class="nav-link" href="AddEmployee.html">Add Manually</a><a class="nav-link" href="RegisterEmp.html">Register</a></nav>
+>>>>>>> b5e4d3b44e3e020301cead9f9a2878df21835a5a
                         </div>
                         <a class="nav-link" href="ViewEmployee.html">View & Edit Records</a>
                     </nav>
@@ -76,6 +85,21 @@
         </div>
         <div class="sb-sidenav-footer">
             <div class="small">Logged in as:</div>
-            Start Bootstrap
+            <p id="LoginName">Bootstrap</p>
         </div>
     </nav>
+    <script>
+        $("document").ready(function(){
+            //$("#LoginName").text("Admin");
+            $.ajax({
+                url : "getSession.php",
+                success : function(data){
+                    if(data == "na"){
+                        window.location = "login.html";
+                    }else{
+                        $("#LoginName").text(data);
+                    }
+                }
+            })
+        });
+    </script>
