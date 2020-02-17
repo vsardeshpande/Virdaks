@@ -2,7 +2,7 @@
 $cnt = 0;
 include("config.php");
 $Company = '';
-if (isset($_POST["submit"])) {
+if (isset($_POST["Upload"])) {
     if ($_FILES['file']['name']) {
         $filename = explode(".", $_FILES['file']['name']);
         if (end($filename) == "csv") {
@@ -37,12 +37,12 @@ if (isset($_POST["submit"])) {
 
                 if ($cnt != 0) {
                     $query = "INSERT INTO employee(EmployeeCode,EmployeeName,DeviceCode,Company,Department,Location,Designation,Grade,Team,Category,EmploymentType,Gender,DOJ,CardNumber,ShiftRoaster,Status)VALUES('$EmployeeCode','$EmployeeName','$DeviceCode','$Company','$Department','$Location','$Designation','$Grade','$Team','$Category','$EmployemntType','$Gender','$DOJ','$CardNumber','$ShiftRoaster','$Status')";
-                    echo $query;
+                    // echo $query;
                     if (mysqli_query($con, $query)) {
-                        echo "Success ".$cnt;
+                        echo "Success " . $cnt;
                         $cnt = $cnt + 1;
                     } else {
-                        echo "Something went wrong".$query;
+                        echo "Something went wrong" . $query;
                         header("refresh:+0;url=401.html");
                     }
                 } else {
