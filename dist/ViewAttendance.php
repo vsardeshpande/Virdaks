@@ -26,7 +26,7 @@
         </div>
         <div id="layoutSidenav_content">
             <main>
-                <div class="container">
+                <div class="container-fluid">
                     <!-- DataTables Example -->
                     <div class="card mb-3" style="margin-top: 15px;">
                         <div class="card-header bg-primary">
@@ -74,15 +74,12 @@
                                             echo "<td>" . $row['ID'] . "</td>";
                                             echo "<td>" . $row['EmployeeCode'] . "</td>";
                                             echo "<td>" . $row['AttendanceDate'] . "</td>";
-
                                             echo "<td>" . $row['InTime'] . "</td>";
                                             //echo "<td>" . $row['InDeviceName'] . "</td>";
                                             echo "<td>" . $row['OutTime'] . "</td>";
-
                                             //echo "<td>" . $row['OutDeviceName'] . "</td>";
                                             echo "<td>" . $row['Status'] . "</td>";
                                             //echo "<td>" . $row['StatusCode'] . "</td>";
-
                                             //	echo "<td>" . $row['Duration'] . "</td>";
                                             echo "<td>" . $row['LateBy'] . "</td>";
                                             echo "<td>" . $row['Earlyby'] . "</td>";
@@ -93,8 +90,6 @@
                                             //	echo "<td>" . $row['OutDoorDuration'] . "</td>";
                                             //	echo "<td>" . $row['PunchRecords'] . "</td>";
                                             echo "<td>" . $row['ShiftName'] . "</td>";
-
-
                                             echo "</tr>";
                                         }
 
@@ -129,32 +124,6 @@
             $("#header").load("Header.html");
             $("#sidenav").load("SideNav.html");
             $("#footer").load("Footer.html");
-        });
-        $('document').ready(function() {
-
-            $.ajax({
-                url: "FetchEmployeeData.php",
-                method: "POST",
-                //data: { c_name: $("#CompanyName").val() },
-                success: function(data) {
-                    var emp_data = '';
-                    var obj = $.parseJSON(data);
-                    $.each(obj, function() {
-                        emp_data += '<tr>';
-                        emp_data += '<td>' + this["EmployeeCode"] + '</td>';
-                        emp_data += '<td>' + this["EmployeeName"] + '</td>';
-                        emp_data += '<td>' + this["Company"] + '</td>';
-                        emp_data += '<td>' + this["Email"] + '</td>';
-                        emp_data += '<td>' + this["DOB"] + '</td>';
-                        emp_data += '<td>' + this["DOJ"] + '</td>';
-                        emp_data += '<td>' + this["Department"] + '</td>';
-                        emp_data += '<td>' + this["Designation"] + '</td>';
-                        emp_data += '</tr>';
-                    });
-                    $("#dataTable").append(emp_data);
-                }
-            });
-
         });
     </script>
 
