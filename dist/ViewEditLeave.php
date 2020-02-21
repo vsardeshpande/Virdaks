@@ -30,7 +30,7 @@
                     <!-- DataTables Example -->
                     <div class="card mb-3" style="margin-top: 15px;">
                         <div class="card-header bg-primary">
-                            <i style="color: white;" class="fas fa-table mr-1"></i><b style="color: white;">Employee Records</b></div>
+                            <i style="color: white;" class="fas fa-table mr-1"></i><b style="color: white;">Approve Leaves</b></div>
                         <div class="card-body">
                             <div class="table-responsive">
                                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
@@ -38,45 +38,45 @@
                                         <tr style="color: #ffffff">
                                             <th>EmpID</th>
                                             <th>Name</th>
-                                            <th>Company</th>
-                                            <th>Email</th>
-                                            <th>DOB</th>
-                                            <th>DOJ</th>
-                                            <th>Department</th>
-                                            <th>Designation</th>
-                                            <th>Profile</th>
+                                            <th>PL</th>
+                                            <th>SL</th>
+                                            <th>CL</th>
+                                            <th>OL</th>
+                                            <!-- <th>No of Days</th>
+                                            <th>Status</th> -->
+                                            <th>Action</th>
                                         </tr>
                                     </thead>
                                     <tfoot>
                                         <tr>
                                             <th>EmpID</th>
                                             <th>Name</th>
-                                            <th>Company</th>
-                                            <th>Email</th>
-                                            <th>DOB</th>
-                                            <th>DOJ</th>
-                                            <th>Department</th>
-                                            <th>Designation</th>
-                                            <th>Profile</th>
+                                            <th>PL</th>
+                                            <th>SL</th>
+                                            <th>CL</th>
+                                            <th>OL</th>
+                                            <!-- <th>No of Days</th>
+                                            <th>Status</th> -->
+                                            <th>Action</th>
                                         </tr>
                                     </tfoot>
                                     <tbody>
                                         <?php
                                         include("config.php");
 
-                                        $result = mysqli_query($con, "SELECT * FROM employee");
+                                        $result = mysqli_query($con, "SELECT * FROM employee ");
 
                                         while ($row = mysqli_fetch_array($result)) {
                                             echo "<tr>";
-                                            echo "<td>" . $row['EmployeeCode'] . "</td>";
+                                            echo "<td id='EmpCode'>" . $row['EmployeeCode'] . "</td>";
                                             echo "<td>" . $row['EmployeeName'] . "</td>";
-                                            echo "<td>" . $row['Company'] . "</td>";
-                                            echo "<td>" . $row['Email'] . "</td>";
-                                            echo "<td>" . $row['DOB'] . "</td>";
-                                            echo "<td>" . $row['DOJ'] . "</td>";
-                                            echo "<td>" . $row['Department'] . "</td>";
-                                            echo "<td>" . $row['Designation'] . "</td>";
-                                            echo "<td><a id='ViewProfile' style='color:#ffffff; width:100%;' class='btn btn-success' name = '" . $row['EmployeeCode'] . "'>View</a>";
+                                            echo "<td><input type='text' name='PL' class='form-control py-4' value ='" . $row['PL'] . "' id ='" . $row['PL'] . "'/></td>";
+                                            echo "<td><input type='text' name='SL' class='form-control py-4' value ='" . $row['SL'] . "' id ='" . $row['SL'] . "'/></td>";
+                                            echo "<td><input type='text' name='CL' class='form-control py-4' value ='" . $row['CL'] . "' id ='" . $row['CL'] . "'/></td>";
+                                            echo "<td><input type='text' name='OL' class='form-control py-4' value ='" . $row['OL'] . "' id ='" . $row['OL'] . "'/></td>";
+                                            //echo "<td>" . $row['Total'] . "</td>";
+                                            //echo "<td name='".$row["Status"]."'>" . $row['Status'] . "</td>";
+                                            echo "<td><input type='button' value='Update' name='UpdateLeave' id='" . $row["EmployeeCode"] . "' class='btn btn-primary py-2' /></td>";
                                             echo "</tr>";
                                         }
 
@@ -85,6 +85,7 @@
                                         ?>
                                     </tbody>
                                 </table>
+                                <div class="form-group mt-4 mb-0"><input type="submit" class="btn btn-danger btn-block" id="Approve" value="Approve" name="Approve"></div>
                             </div>
                         </div>
                         <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
@@ -111,11 +112,25 @@
             $("#header").load("Header.html");
             $("#sidenav").load("SideNav.html");
             $("#footer").load("Footer.html");
-            
+
         });
-        $('document').ready(function(){
-            $("#ViewProfile").click(function(){
-                window.location = 'ViewEmpProfile.html';
+        $('document').ready(function() {
+            $("input:button[name='UpdateLeave']").click(function() {
+                
+                $.ajax({
+                    url: "UpdateLeave.php",
+                    method: "POST",
+                    data: {
+                        EmpCode1: $("#EmpCode").text(),
+                        PL: $("input:text[name='PL']").val(),
+                        SL: $("input:text[name='SL']").val(),
+                        CL: $("input:text[name='CL']").val(),
+                        OL: $("input:text[name='OL']").val()
+                    },
+                    success: function(data) {
+                        alert(data);
+                    }
+                });
             });
         });
     </script>

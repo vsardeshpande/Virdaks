@@ -11,17 +11,21 @@ if (isset($_POST["submit"])) {
     $Designation = $_REQUEST["Designation"];
     $EmpType = $_REQUEST["EmpType"];
     $Gender = $_REQUEST["gender"];
+    $PL = $_REQUEST["PL"];
+    $SL = $_REQUEST["SL"];
+    $CL = $_REQUEST["CL"];
+    $OL = $_REQUEST["OL"];
 }
 
-$sql = "INSERT INTO employee (EmployeeCode, EmployeeName, Company, Department, Designation, EmploymentType, Gender, DOJ, DOB) VALUES (" . $EmpCode . ",'" . $EmpName . "','" . $Company . "','" . $Dept . "','" . $Designation . "','" . $EmpType . "','" . $Gender . "','" . $DOJ . "','" . $DOB . "') ";
+$sql = "INSERT INTO employee (EmployeeCode, EmployeeName, Company, Department, Designation, EmploymentType, Gender, DOJ, DOB, PL, SL, CL, OL, Email) VALUES (" . $EmpCode . ",'" . $EmpName . "','" . $Company . "','" . $Dept . "','" . $Designation . "','" . $EmpType . "','" . $Gender . "','" . $DOJ . "','" . $DOB . "','" . $PL . "','" . $SL . "','" . $CL . "','" . $OL . "','" . $EmailID . "') ";
+//$LeaveSQL = "INSERT INTO employee_leave_details (EmployeeCode, EmployeeName, PL, SL, CL, OL) VALUES (" . $EmpCode . ",'" . $EmpName . "','".$PL."','".$SL."','".$CL."','".$OL."')";
 
 try {
-    if (mysqli_query($con, $sql)) {
+    if ((mysqli_query($con, $sql))) {
         echo "<script type='text/javascript'>alert('Done...!')</script>";
         //sleep(1500);
         header("Refresh:0; url=AddEmployee.html");
-    }
-    else{
+    } else {
         header("location:500.html");
     }
 } catch (Exception $ex) {

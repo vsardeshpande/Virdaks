@@ -35,6 +35,8 @@ if (isset($_POST["Upload"])) {
                     $Company = 'XYZ';
                 }
 
+                
+
                 if ($cnt != 0) {
                     $query = "INSERT INTO employee(EmployeeCode,EmployeeName,DeviceCode,Company,Department,Location,Designation,Grade,Team,Category,EmploymentType,Gender,DOJ,CardNumber,ShiftRoaster,Status)VALUES('$EmployeeCode','$EmployeeName','$DeviceCode','$Company','$Department','$Location','$Designation','$Grade','$Team','$Category','$EmployemntType','$Gender','$DOJ','$CardNumber','$ShiftRoaster','$Status')";
                     // echo $query;

@@ -30,7 +30,7 @@
                     <!-- DataTables Example -->
                     <div class="card mb-3" style="margin-top: 15px;">
                         <div class="card-header bg-primary">
-                            <i style="color: white;" class="fas fa-table mr-1"></i><b style="color: white;">Employee Records</b></div>
+                            <i style="color: white;" class="fas fa-table mr-1"></i><b style="color: white;">Approve Leaves</b></div>
                         <div class="card-body">
                             <div class="table-responsive">
                                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
@@ -38,45 +38,45 @@
                                         <tr style="color: #ffffff">
                                             <th>EmpID</th>
                                             <th>Name</th>
-                                            <th>Company</th>
-                                            <th>Email</th>
-                                            <th>DOB</th>
-                                            <th>DOJ</th>
-                                            <th>Department</th>
-                                            <th>Designation</th>
-                                            <th>Profile</th>
+                                            <th>Leave Type</th>
+                                            <th>From</th>
+                                            <th>To</th>
+                                            <th>Reason</th>
+                                            <th>No of Days</th>
+                                            <th>Status</th>
+                                            <th><input type="checkbox" id="checkall" /></th>
                                         </tr>
                                     </thead>
                                     <tfoot>
                                         <tr>
                                             <th>EmpID</th>
                                             <th>Name</th>
-                                            <th>Company</th>
-                                            <th>Email</th>
-                                            <th>DOB</th>
-                                            <th>DOJ</th>
-                                            <th>Department</th>
-                                            <th>Designation</th>
-                                            <th>Profile</th>
+                                            <th>Leave Type</th>
+                                            <th>From</th>
+                                            <th>To</th>
+                                            <th>Reason</th>
+                                            <th>No of Days</th>
+                                            <th>Status</th>
+                                            <th>Action</th>
                                         </tr>
                                     </tfoot>
                                     <tbody>
                                         <?php
                                         include("config.php");
 
-                                        $result = mysqli_query($con, "SELECT * FROM employee");
+                                        $result = mysqli_query($con, "SELECT * FROM employee_leave_details ");
 
                                         while ($row = mysqli_fetch_array($result)) {
                                             echo "<tr>";
                                             echo "<td>" . $row['EmployeeCode'] . "</td>";
                                             echo "<td>" . $row['EmployeeName'] . "</td>";
-                                            echo "<td>" . $row['Company'] . "</td>";
-                                            echo "<td>" . $row['Email'] . "</td>";
-                                            echo "<td>" . $row['DOB'] . "</td>";
-                                            echo "<td>" . $row['DOJ'] . "</td>";
-                                            echo "<td>" . $row['Department'] . "</td>";
-                                            echo "<td>" . $row['Designation'] . "</td>";
-                                            echo "<td><a id='ViewProfile' style='color:#ffffff; width:100%;' class='btn btn-success' name = '" . $row['EmployeeCode'] . "'>View</a>";
+                                            echo "<td>" . $row['LeaveType'] . "</td>";
+                                            echo "<td>" . $row['DateFrom'] . "</td>";
+                                            echo "<td>" . $row['DateTo'] . "</td>";
+                                            echo "<td>" . $row['Reasone'] . "</td>";
+                                            echo "<td>" . $row['Total'] . "</td>";
+                                            echo "<td name='".$row["Status"]."'>" . $row['Status'] . "</td>";
+                                            echo "<td><input type='checkbox' value='" . $row["EmployeeCode"] . "' name='chk' /></td>";
                                             echo "</tr>";
                                         }
 
@@ -85,6 +85,7 @@
                                         ?>
                                     </tbody>
                                 </table>
+                                <div class="form-group mt-4 mb-0"><input type="submit" class="btn btn-danger btn-block" id="Approve" value="Approve" name="Approve"></div>
                             </div>
                         </div>
                         <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
@@ -111,11 +112,40 @@
             $("#header").load("Header.html");
             $("#sidenav").load("SideNav.html");
             $("#footer").load("Footer.html");
-            
+
         });
-        $('document').ready(function(){
-            $("#ViewProfile").click(function(){
-                window.location = 'ViewEmpProfile.html';
+        $('document').ready(function() {
+            //alert();
+            // if ($("td").text() == "Pending") {
+            //     $("td[name='status']").css('background-color', 'red');
+            //     $("td[name='status']").css('color', 'white');
+            // }
+            $("td[name='Pending']").each(function(){
+                $(this).css('background-color' , 'red');
+                $(this).css('color' , 'white');
+            });
+            $("td[name='Approved']").each(function(){
+                $(this).css('background-color' , 'Green');
+                $(this).css('color' , 'white');
+            });
+
+            $("#Approve").click(function() {
+                var checkArray = [];
+                $("input:checkbox[name=chk]:checked").each(function() {
+                    checkArray.push($(this).val());
+                });
+                var jsonString = JSON.stringify(checkArray);
+                $.ajax({
+                    url : "Approve.php",
+                    method : "POST",
+                    data : {EmpCode : jsonString},
+                    cache : false,
+                    success : function(data){
+                        alert(data);
+                        window.location = "ApproveLeave.php";
+                    }
+
+                });
             });
         });
     </script>
