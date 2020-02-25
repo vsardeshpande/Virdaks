@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <title>Dashboard - SB Admin</title>
+    <link href="css/styles.css" rel="stylesheet" />
+    <link href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css" rel="stylesheet"
+        crossorigin="anonymous" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/js/all.min.js"
+        crossorigin="anonymous"></script>
+</head>
+
+<body class="sb-nav-fixed">
+    <div id="header">
+    </div>
+    <div id="layoutSidenav">
+        <div id="sidenav">
+        </div>
+        <div id="layoutSidenav_content">
+            <main>
+                <div class="container">
+                    <div class="row justify-content-center">
+                        <div class="col-lg-7">
+                            <div class="card shadow-lg border-0 rounded-lg mt-5">
+                                <div class="card-header bg-info">
+                                    <h3 id="EmpNameTitle" class="text-center font-weight-light my-4" style="color:white">Employee Profile
+                                    </h3>
+                                </div>
+                                <div class="card-body">
+                                    <form action="AddEmployee.php" method="POST">
+                                        <div class="form-row">
+                                            <div class="col-md-10">
+                                                <div class="form-group"><label class="small mb-1" for="EmpCode">Employee
+                                                        Code</label><input class="form-control py-4" name="EmpCode"
+                                                        type="text" placeholder="" id="EmpCode" /></div>
+                                            </div>
+                                            <div class="col-md-2">
+                                                <button style="height: 50%; width: 100%; margin-top: 30%;" type="button"
+                                                    id="searchID" name="searchID"><i class="fa fa-search"></i></button>
+                                            </div>
+                                        </div>
+                                        <div class="form-row">
+                                            <div class="col-md-12">
+                                                <div class="form-group"><label class="small mb-1" for="EmpName">Employee
+                                                        Name</label><input class="form-control py-4" name="EmpName"
+                                                        type="text" placeholder="" id="EmpName" disabled /></div>
+                                            </div>
+                                        </div>
+                                        <div class="form-row">
+                                            <div class="col-md-6">
+                                                <div class="form-group"><label class="small mb-1"
+                                                        for="Company">Company</label><input class="form-control py-4"
+                                                        name="Company" type="text" placeholder="" id="Company"
+                                                        disabled /></div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group"><label class="small mb-1"
+                                                        for="Email">Email</label><input class="form-control py-4"
+                                                        name="Email" type="text" placeholder="" id="Email" disabled />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-row">
+                                            <div class="col-md-4">
+                                                <div class="form-group"><label class="small mb-1"
+                                                        for="DOB">DOB</label><input class="form-control py-4" name="DOB"
+                                                        type="text" placeholder="" id="DOB" disabled /></div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="form-group"><label class="small mb-1"
+                                                        for="DOJ">DOJ</label><input class="form-control py-4" name="DOJ"
+                                                        type="text" placeholder="" id="DOJ" readonly />
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="form-group"><label class="small mb-1"
+                                                        for="Designation">Designation</label><input
+                                                        class="form-control py-4" name="Designation" type="text"
+                                                        placeholder="" id="Designation" disabled />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-row">
+                                            <div class="col-md-6">
+                                                <div class="form-group"><label class="small mb-1"
+                                                        for="EmpType">Employement Type</label><input
+                                                        class="form-control py-4" name="EmpType" type="text"
+                                                        placeholder="" id="EmpType" disabled /></div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group"><label class="small mb-1"
+                                                        for="Gender">Gender</label><input class="form-control py-4"
+                                                        name="Gender" type="text" placeholder="" id="Gender" readonly />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                                <div class="card-footer text-center">
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <input type="button" value="Update" id="Update" name="Update"
+                                                class="btn btn-success" style="width: 100%;" disabled />
+                                        </div>
+                                        <div class="col-md-4">
+                                            <input type="button" value="Edit" id="Edit" name="Edit"
+                                                class="btn btn-primary" style="width: 100%;" />
+                                        </div>
+                                        <div class="col-md-4">
+                                            <input type="button" value="Cancel" id="Cancel" name="Cancel"
+                                                class="btn btn-danger" style="width: 100%;" disabled />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+            <div id="footer"></div>
+        </div>
+    </div>
+
+
+    <!-- Employee Modal -->
+
+    <div class="modal fade" id="myModal">
+        <form method="post" action="ImportEmpExcel.php" enctype="multipart/form-data">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <!-- Modal Header -->
+                    <div class="modal-header">
+                        <h4 class="modal-title">Import Excel Data </h4>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+                    <!-- Modal body -->
+                    <div class="modal-body">
+                        <b>Input Excel File...!!!</b><br>
+                        <input type="file" name="file" />
+                        <br>
+
+                    </div>
+                    <!-- Modal footer -->
+                    <div class="modal-footer">
+                        <input class="btn btn-success" type="submit" name="Upload" value="Upload"
+                            style="float:right;" />
+                    </div>
+
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <!-- Attandance Modal -->
+
+    <div class="modal fade" id="AttendanceModal">
+        <form method="post" action="ImportAttendanceExcel.php" enctype="multipart/form-data">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <!-- Modal Header -->
+                    <div class="modal-header">
+                        <h4 class="modal-title">Import Excel Data </h4>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+                    <!-- Modal body -->
+                    <div class="modal-body">
+                        <b>Input Excel File...!!!</b><br>
+                        <input type="file" name="file" />
+                        <br>
+
+                    </div>
+                    <!-- Modal footer -->
+                    <div class="modal-footer">
+                        <input class="btn btn-success" type="submit" name="UploadAt" value="Upload"
+                            style="float:right;" />
+                    </div>
+
+                </div>
+            </div>
+        </form>
+    </div>
+
+
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"
+        crossorigin="anonymous"></script>
+    <script src="js/scripts.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
+    <script src="assets/demo/chart-area-demo.js"></script>
+    <script src="assets/demo/chart-bar-demo.js"></script>
+    <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js" crossorigin="anonymous"></script>
+    <script src="assets/demo/datatables-demo.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js"></script>
+    <script>
+        $(function () {
+            $("#header").load("Header.html");
+            $("#sidenav").load("SideNav.html");
+            $("#footer").load("Footer.html");
+            $("#EmpNameTitle").text($.cookie("EmpCode"));
+            alert($.cookie("EmpCode"));
+            //var sessName = '<?php echo $_SESSION["ID"]?>';
+            //alert("<?php $_SESSION['ID'] ?>");
+        });
+        $('document').ready(function () {
+            $("#searchID").on("click", function () {
+                $.ajax({
+                    url: "ViewEmpProfile.php",
+                    method: "",
+                    data: { EmpCode: $("#EmpCode").val() },
+                    success: function (data) {
+                        //alert(data);
+                        if (data == "null") {
+                            alert("Record Not Found ... !!!");
+                        } else {
+                            var obj = $.parseJSON(data);
+                            $("#EmpName").val(obj["EmployeeName"]);
+                            $("#Company").val(obj["Company"]);
+                            $("#Email").val(obj["Email"]);
+                            $("#DOB").val(obj["DOB"]);
+                            $("#DOJ").val(obj["DOJ"]);
+                            $("#Designation").val(obj["Designation"]);
+                            $("#EmpType").val(obj["EmploymentType"]);
+                            $("#Gender").val(obj["Gender"]);
+                        }
+                        //alert(obj);
+                    }
+                });
+            });
+
+            $("#Edit").on("click", function () {
+                enable();
+            });
+            $("#Update").on("click", function(){
+                $.ajax({
+                    url : "UpdateEmpProfile.php",
+                    method : "POST",
+                    data : {
+                        EmpCode : $("#EmpCode").val(),
+                        EmpName : $("#EmpName").val(),
+                        Company : $("#Company").val(),
+                        Email : $("#Email").val(),
+                        DOB : $("#DOB").val(),
+                        Designation :  $("#Designation").val(),
+                        EmpType : $("#EmpType").val(),                     
+                    },
+                    success : function(data){
+                        alert(data);
+                        disable();
+                    }
+                });
+            });
+            $("#Cancel").on("click",function(){
+                disable();
+            })
+            function enable() {
+                $("#EmpName").prop("disabled", false);
+                $("#Company").prop("disabled", false);
+                $("#Email").prop("disabled", false);
+                $("#DOB").prop("disabled", false);
+                $("#DOJ").prop("disabled", false);
+                $("#Designation").prop("disabled", false);
+                $("#EmpType").prop("disabled", false);
+                $("#Update").prop("disabled", false);
+                $("#Cancel").prop("disabled", false);
+                //$("#Gender").val(obj["Gender"]);
+            }
+            function disable() {
+                $("#EmpName").prop("disabled", true);
+                $("#Company").prop("disabled", true);
+                $("#Email").prop("disabled", true);
+                $("#DOB").prop("disabled", true);
+                $("#DOJ").prop("disabled", true);
+                $("#Designation").prop("disabled", true);
+                $("#EmpType").prop("disabled", true);
+                $("#Update").prop("disabled", true);
+                $("#Cancel").prop("disabled", true);
+                //$("#Gender").val(obj["Gender"]);
+            }
+        });
+    </script>
+
+</body>
+
+</html>

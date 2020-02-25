@@ -6,6 +6,7 @@ if ($x == "") {
     header("refresh:0;url=login.html");
 }
 $cnt = 0;
+$flag = 0;
 include("config.php");
 if (isset($_POST["UploadAt"])) {
     if ($_FILES['file']['name']) {
@@ -35,24 +36,47 @@ if (isset($_POST["UploadAt"])) {
                 $PuchRecords = mysqli_real_escape_string($con, $data[22]);
                 $ShiftName = mysqli_real_escape_string($con, $data[23]);
 
+                $count_date = "select count(AttendanceDate) as 'count' from attendence where AttendanceDate = '".$AttendanceDate."'";
+                $res_cnt = mysqli_query($con,$count_date);
+                $dateCount = mysqli_fetch_assoc($res_cnt);
+                //echo $dateCount;
+
                 if ($cnt != 0) {
+
                     $query = "INSERT INTO attendence(EmployeeCode,AttendanceDate,InTime,InDeviceName,OutTime,OutDeviceName,Status,StatusCode,Duration,LateBy,EarlyBy,Overtime,IsOnLeave,LeaveType,IsOnOutDoorEntries,OutDoorDuration,PunchRecords,ShiftName)VALUES('$EmployeeCode','$AttendanceDate','$InTime','$InDeviceName','$OutTime','$OutDeviceName','$Status','$StatusCode','$Duration','$LateBy','$EarlyBy','$Overtime','$IsOnLeave','$LeaveType','$IsOnOutDoorEntries','$OutDoorDuration','$PuchRecords','$ShiftName')";
                     if (mysqli_query($con, $query)) {
-                        //echo "Success ".$AttendenceDate;
+                        $flag += 1;
+                        //echo "Success ".$flag;
                         $cnt = $cnt + 1;
                     } else {
-                        echo "Something wrong ";
-                        header("refresh:0;url=Admin.html");
+                        $flag -= 0;
+                        //echo "failed".$flag."Query = ".$query;
+                        //echo "Something wrong ";                        
+                        //header("refresh:0;url=Admin.html");
                     }
                 } else {
                     $cnt = $cnt + 1;
                 }
             }
             fclose($handle);
-
-            echo "<script type='text/javascript'>alert('Done')</script>";
-
-            header("refresh:0;url=Admin.html");
+            // echo "<script type='text/javascript'>alert('Done')</script>";
+            //header("refresh:0;url=Admin.html");
+            // if ($flag == 1) {
+            //     echo "<script type='text/javascript'>alert('Done')</script>";
+            //     //header("refresh:0;url=Admin.html");
+            // } elseif($flag == 0) {
+            //     echo "<script type='text/javascript'>alert('Failed...check employee record or attendance sheet for any mismatch constraints')</script>";
+            //     echo $flag;
+            //     //header("refresh:0;url=Admin.html");
+            // }
+            if($flag > 0){
+                echo "<script type='text/javascript'>alert('Attendance recorded for employees present in database')</script>";
+                header("refresh:0;url=Admin.html");
+            }else{
+                echo "<script type='text/javascript'>alert('Failed...check employee record or attendance sheet for any mismatch constraints')</script>";
+                //echo $flag;
+                header("refresh:0;url=Admin.html");
+            }
         } else {
             echo "Select only csv file";
         }

@@ -76,7 +76,7 @@
                                             echo "<td>" . $row['DOJ'] . "</td>";
                                             echo "<td>" . $row['Department'] . "</td>";
                                             echo "<td>" . $row['Designation'] . "</td>";
-                                            echo "<td><a id='ViewProfile' style='color:#ffffff; width:100%;' class='btn btn-success' name = '" . $row['EmployeeCode'] . "'>View</a>";
+                                            echo "<td><a id='".$row['EmployeeCode']."' name='ViewProfile' style='color:#ffffff; width:100%;' class='btn btn-success' >View</a>";
                                             echo "</tr>";
                                         }
 
@@ -106,7 +106,8 @@
     <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js" crossorigin="anonymous"></script>
     <script src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js" crossorigin="anonymous"></script>
     <script src="assets/demo/datatables-demo.js"></script>
-    <script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js"></script>
+    <script >
         $(function() {
             $("#header").load("Header.html");
             $("#sidenav").load("SideNav.html");
@@ -114,8 +115,10 @@
             
         });
         $('document').ready(function(){
-            $("#ViewProfile").click(function(){
-                window.location = 'ViewEmpProfile.html';
+            $("a[name=ViewProfile]").click(function(){
+                //alert($(this).attr('id'));
+                $.cookie("EmpCode", $(this).attr("id"));
+                window.location = 'ViewProfile.html';
             });
         });
     </script>

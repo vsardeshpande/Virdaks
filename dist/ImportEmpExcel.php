@@ -41,10 +41,10 @@ if (isset($_POST["Upload"])) {
                     $query = "INSERT INTO employee(EmployeeCode,EmployeeName,DeviceCode,Company,Department,Location,Designation,Grade,Team,Category,EmploymentType,Gender,DOJ,CardNumber,ShiftRoaster,Status)VALUES('$EmployeeCode','$EmployeeName','$DeviceCode','$Company','$Department','$Location','$Designation','$Grade','$Team','$Category','$EmployemntType','$Gender','$DOJ','$CardNumber','$ShiftRoaster','$Status')";
                     // echo $query;
                     if (mysqli_query($con, $query)) {
-                        echo "Success " . $cnt;
+                        //echo "Success ";
                         $cnt = $cnt + 1;
                     } else {
-                        echo "Something went wrong" . $query;
+                        echo "Something went wrong";
                         header("refresh:+0;url=401.html");
                     }
                 } else {
