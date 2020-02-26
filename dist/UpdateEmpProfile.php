@@ -8,10 +8,10 @@ $DOB = $_REQUEST["DOB"];
 $Designation = $_REQUEST["Designation"];
 $EmpType = $_REQUEST["EmpType"];
 
-$sql = "UPDATE employee SET EmployeeName='".$EmpName."' , Company = '".$Company."' , Designation = '".$Designation."' , EmploymentType = '".$EmpType."' WHERE EmployeeCode = '".$EmpCode."'";
+$sql = "UPDATE employee SET EmployeeName='".$EmpName."' , Company = '".$Company."' , Designation = '".$Designation."' , EmploymentType = '".$EmpType."' ,DOB = '".$DOB."', Email = '".$Email."' WHERE EmployeeCode = '".$EmpCode."'";
 // $result = mysqli_query($con,$sql);
 if( mysqli_query($con,$sql)){
-    echo "Done".$sql;
+    echo "Done";
 }else{
-    echo "Failed".$sql;
+    echo "Failed";
 }

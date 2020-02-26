@@ -1,0 +1,12 @@
+EmployeeCode,EmployeeName,DeviceCode,Company,Department,Location,Designation,Grade,Team,Category,EmploymentType,Gender,DOJ,DOC,CardNumber,ShiftRoaster,Status,DOR,Basic
+1001,ABC,1001,Virdask,Default,,,,,Default,Permanent,Male,01-01-1900,01-01-1900,,,Working,01-01-3000,50000
+1002,PQR,1002,Virdask,Default,,,,,Default,Permanent,Male,01-01-1900,01-01-1900,,,Working,01-01-3000,45000
+1004,ASD,1004,Virdask,Default,,,,,Default,Permanent,Male,01-01-1900,01-01-1900,,,Working,01-01-3000,25000
+1006,SDA,1006,Virdask,Default,,,,,Default,Permanent,Male,01-01-1900,01-01-1900,,,Working,01-01-3000,35000
+1008,JHB,1008,Virdask,Default,,,,,Default,Permanent,Male,01-01-1900,01-01-1900,,,Working,01-01-3000,25600
+1009,KUB,1009,Virdask,Default,,,,,Default,Permanent,Male,01-01-1900,01-01-1900,,,Working,01-01-3000,12500
+1010,IUB,1010,Virdask,Default,,,,,Default,Permanent,Male,01-01-1900,01-01-1900,,,Working,01-01-3000,2560
+1011,KUHk,1011,Virdask,Default,,,,,Default,Permanent,Male,01-01-1900,01-01-1900,,,Working,01-01-3000,325620
+1012,ubI jhbj,1012,Virdask,Default,,,,,Default,Permanent,Male,01-01-1900,01-01-1900,,,Working,01-01-3000,12562
+2001,jusjjs sjbds ,1019,Virdask,Default,,,,,Default,Permanent,Male,01-01-1900,01-01-1900,,,Working,01-01-3000,35652
+3001, asbbsd ,1234,Virdask,Default,,,,,Default,Permanent,Male,01-01-1900,01-01-1900,,,Working,01-01-3000,45856

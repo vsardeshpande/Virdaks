@@ -47,6 +47,7 @@
                                             <th>EarlyBy</th>
                                             <th>Overtime</th>
                                             <th>ShiftName</th>
+                                            <th>Duration</th>
                                         </tr>
                                     </thead>
                                     <tfoot>
@@ -61,6 +62,7 @@
                                             <th>EarlyBy</th>
                                             <th>Duration</th>
                                             <th>ShiftName</th>
+                                            <th>Duration</th>
                                         </tr>
                                     </tfoot>
                                     <tbody>
@@ -90,6 +92,7 @@
                                             //	echo "<td>" . $row['OutDoorDuration'] . "</td>";
                                             //	echo "<td>" . $row['PunchRecords'] . "</td>";
                                             echo "<td>" . $row['ShiftName'] . "</td>";
+                                            echo "<td>" . $row['Duration'] . "</td>";
                                             echo "</tr>";
                                         }
 

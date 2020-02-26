@@ -28,21 +28,22 @@
                         <div class="col-lg-7">
                             <div class="card shadow-lg border-0 rounded-lg mt-5">
                                 <div class="card-header bg-info">
-                                    <h3 id="EmpNameTitle" class="text-center font-weight-light my-4" style="color:white">Employee Profile
+                                    <h3 id="EmpNameTitle" class="text-center font-weight-light my-4"
+                                        style="color:white">Employee Profile
                                     </h3>
                                 </div>
                                 <div class="card-body">
                                     <form action="AddEmployee.php" method="POST">
                                         <div class="form-row">
-                                            <div class="col-md-10">
+                                            <div class="col-md-12">
                                                 <div class="form-group"><label class="small mb-1" for="EmpCode">Employee
                                                         Code</label><input class="form-control py-4" name="EmpCode"
-                                                        type="text" placeholder="" id="EmpCode" /></div>
+                                                        type="text" placeholder="" id="EmpCode" readonly /></div>
                                             </div>
-                                            <div class="col-md-2">
+                                            <!-- <div class="col-md-2">
                                                 <button style="height: 50%; width: 100%; margin-top: 30%;" type="button"
                                                     id="searchID" name="searchID"><i class="fa fa-search"></i></button>
-                                            </div>
+                                            </div> -->
                                         </div>
                                         <div class="form-row">
                                             <div class="col-md-12">
@@ -202,60 +203,61 @@
             $("#header").load("Header.html");
             $("#sidenav").load("SideNav.html");
             $("#footer").load("Footer.html");
-            $("#EmpNameTitle").text($.cookie("EmpCode"));
-            alert($.cookie("EmpCode"));
+            $("#EmpCode").val($.cookie("EmpCode"));
+            //$("#EmpNameTitle").text($.cookie("EmpCode"));
+            //alert($.cookie("EmpCode"));
             //var sessName = '<?php echo $_SESSION["ID"]?>';
             //alert("<?php $_SESSION['ID'] ?>");
         });
         $('document').ready(function () {
-            $("#searchID").on("click", function () {
-                $.ajax({
-                    url: "ViewEmpProfile.php",
-                    method: "",
-                    data: { EmpCode: $("#EmpCode").val() },
-                    success: function (data) {
-                        //alert(data);
-                        if (data == "null") {
-                            alert("Record Not Found ... !!!");
-                        } else {
-                            var obj = $.parseJSON(data);
-                            $("#EmpName").val(obj["EmployeeName"]);
-                            $("#Company").val(obj["Company"]);
-                            $("#Email").val(obj["Email"]);
-                            $("#DOB").val(obj["DOB"]);
-                            $("#DOJ").val(obj["DOJ"]);
-                            $("#Designation").val(obj["Designation"]);
-                            $("#EmpType").val(obj["EmploymentType"]);
-                            $("#Gender").val(obj["Gender"]);
-                        }
-                        //alert(obj);
+
+            $.ajax({
+                url: "ViewEmpProfile.php",
+                method: "",
+                data: { EmpCode: $("#EmpCode").val() },
+                success: function (data) {
+                    //alert(data);
+                    if (data == "null") {
+                        alert("Record Not Found ... !!!");
+                    } else {
+                        var obj = $.parseJSON(data);
+                        $("#EmpName").val(obj["EmployeeName"]);
+                        $("#Company").val(obj["Company"]);
+                        $("#Email").val(obj["Email"]);
+                        $("#DOB").val(obj["DOB"]);
+                        $("#DOJ").val(obj["DOJ"]);
+                        $("#Designation").val(obj["Designation"]);
+                        $("#EmpType").val(obj["EmploymentType"]);
+                        $("#Gender").val(obj["Gender"]);
                     }
-                });
+                    //alert(obj);
+                }
             });
+
 
             $("#Edit").on("click", function () {
                 enable();
             });
-            $("#Update").on("click", function(){
+            $("#Update").on("click", function () {
                 $.ajax({
-                    url : "UpdateEmpProfile.php",
-                    method : "POST",
-                    data : {
-                        EmpCode : $("#EmpCode").val(),
-                        EmpName : $("#EmpName").val(),
-                        Company : $("#Company").val(),
-                        Email : $("#Email").val(),
-                        DOB : $("#DOB").val(),
-                        Designation :  $("#Designation").val(),
-                        EmpType : $("#EmpType").val(),                     
+                    url: "UpdateEmpProfile.php",
+                    method: "POST",
+                    data: {
+                        EmpCode: $("#EmpCode").val(),
+                        EmpName: $("#EmpName").val(),
+                        Company: $("#Company").val(),
+                        Email: $("#Email").val(),
+                        DOB: $("#DOB").val(),
+                        Designation: $("#Designation").val(),
+                        EmpType: $("#EmpType").val(),
                     },
-                    success : function(data){
+                    success: function (data) {
                         alert(data);
                         disable();
                     }
                 });
             });
-            $("#Cancel").on("click",function(){
+            $("#Cancel").on("click", function () {
                 disable();
             })
             function enable() {

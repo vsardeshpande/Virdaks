@@ -1,5 +1,6 @@
 <?php
 session_start();
+error_reporting(0);
 $x = $_SESSION["ID"];
 if ($x == "") {
     echo "<script>alert('session expires')</script>";
@@ -36,26 +37,46 @@ if (isset($_POST["UploadAt"])) {
                 $PuchRecords = mysqli_real_escape_string($con, $data[22]);
                 $ShiftName = mysqli_real_escape_string($con, $data[23]);
 
-                $count_date = "select count(AttendanceDate) as 'count' from attendence where AttendanceDate = '".$AttendanceDate."'";
-                $res_cnt = mysqli_query($con,$count_date);
-                $dateCount = mysqli_fetch_assoc($res_cnt);
-                //echo $dateCount;
+                $count_date = "select count(AttendanceDate) as 'count' from attendence where AttendanceDate = '" . $AttendanceDate . "'";
+                $res_cnt = mysqli_query($con, $count_date);
 
-                if ($cnt != 0) {
+                try {
+                    $time1 = strtotime($InTime);
+                    $starttime = date('H:i:s', $time1);
 
-                    $query = "INSERT INTO attendence(EmployeeCode,AttendanceDate,InTime,InDeviceName,OutTime,OutDeviceName,Status,StatusCode,Duration,LateBy,EarlyBy,Overtime,IsOnLeave,LeaveType,IsOnOutDoorEntries,OutDoorDuration,PunchRecords,ShiftName)VALUES('$EmployeeCode','$AttendanceDate','$InTime','$InDeviceName','$OutTime','$OutDeviceName','$Status','$StatusCode','$Duration','$LateBy','$EarlyBy','$Overtime','$IsOnLeave','$LeaveType','$IsOnOutDoorEntries','$OutDoorDuration','$PuchRecords','$ShiftName')";
-                    if (mysqli_query($con, $query)) {
-                        $flag += 1;
-                        //echo "Success ".$flag;
-                        $cnt = $cnt + 1;
+                    $time2 = strtotime($OutTime);
+                    $endtime = date('H:i:s', $time2);
+
+                    // $d1 = new DateTime($starttime);
+                    // $d2 = new DateTime($endtime);
+                    // $interval = $d2->diff($d1);
+
+                    $diff = strval(abs($endtime - $starttime));
+                    $ot = 
+                    //echo 'Login Time : ' . date('H:i:s', $loginTime) . '<br>';
+                    //echo ($diff < 0) ? 'Late!' : 'Right time!';
+                    // echo '<br>';
+                    // echo 'Time diff in sec: ' . $diff . " EmpCode : " . $EmployeeCode;
+
+
+                    if ($cnt != 0) {
+
+                        $query = "INSERT INTO attendence(EmployeeCode,AttendanceDate,InTime,InDeviceName,OutTime,OutDeviceName,Status,StatusCode,Duration,LateBy,EarlyBy,Overtime,IsOnLeave,LeaveType,IsOnOutDoorEntries,OutDoorDuration,PunchRecords,ShiftName)VALUES('$EmployeeCode','$AttendanceDate','$InTime','$InDeviceName','$OutTime','$OutDeviceName','$Status','$StatusCode','$diff','$LateBy','$EarlyBy','$Overtime','$IsOnLeave','$LeaveType','$IsOnOutDoorEntries','$OutDoorDuration','$PuchRecords','$ShiftName')";
+                        if (mysqli_query($con, $query)) {
+                            $flag += 1;
+                            //echo "Success ".$flag;
+                            $cnt = $cnt + 1;
+                        } else {
+                            $flag -= 0;
+                            echo "failed" . $flag . "Query = " . $query;
+                            //echo "Something wrong ";                        
+                            //header("refresh:0;url=Admin.html");
+                        }
                     } else {
-                        $flag -= 0;
-                        //echo "failed".$flag."Query = ".$query;
-                        //echo "Something wrong ";                        
-                        //header("refresh:0;url=Admin.html");
+                        $cnt = $cnt + 1;
                     }
-                } else {
-                    $cnt = $cnt + 1;
+                } catch (Exception $ex) {
+                    //echo "some errors";
                 }
             }
             fclose($handle);
@@ -69,10 +90,10 @@ if (isset($_POST["UploadAt"])) {
             //     echo $flag;
             //     //header("refresh:0;url=Admin.html");
             // }
-            if($flag > 0){
+            if ($flag > 0) {
                 echo "<script type='text/javascript'>alert('Attendance recorded for employees present in database')</script>";
                 header("refresh:0;url=Admin.html");
-            }else{
+            } else {
                 echo "<script type='text/javascript'>alert('Failed...check employee record or attendance sheet for any mismatch constraints')</script>";
                 //echo $flag;
                 header("refresh:0;url=Admin.html");
