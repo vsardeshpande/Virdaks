@@ -1,7 +1,7 @@
 Employee Code,Employee Name,AttendanceDate,Company,Department,Category,Designation,Employement type,InTime,In Device Name, OutTime,Out Device Name,Status,StatusCode,Duration,LateBy,Early by,Overtime,Is On Leave,LeaveType,Is On OutDoor Entries,OutDoor Duration,PunchRecords,ShiftName
-1001,1001,7/24/2018,Default,Default,Default,,Permanent,11:26,TD,16:15,TD,Absent,A,0,0,0,0,FALSE,,FALSE,0,11:26:in(TD) 18:26:(TD) ,GS
-1002,1002,7/24/2018,Default,Default,Default,,Permanent,12:20,,18:18,,Absent,A,0,0,0,0,FALSE,,FALSE,0,,NS
-1004,1004,7/24/2018,Default,Default,Default,,Permanent,10:11,TD,12:11,TD,Absent,A,0,0,0,0,FALSE,,FALSE,0,10:11:in(TD) ,GS
+1001,1001,7/27/2020,Default,Default,Default,,Permanent,11:26,TD,16:15,TD,Absent,A,0,0,0,0,FALSE,,FALSE,0,11:26:in(TD) 18:26:(TD) ,GS
+1002,1002,7/27/2020,Default,Default,Default,,Permanent,12:20,,18:18,,Absent,A,0,0,0,0,FALSE,,FALSE,0,,NS
+1004,1004,7/27/2020,Default,Default,Default,,Permanent,10:11,TD,12:11,TD,Absent,A,0,0,0,0,FALSE,,FALSE,0,10:11:in(TD) ,GS
 1006,1006,7/24/2018,Default,Default,Default,,Permanent,9:50,,18:18,,Absent,A,0,0,0,0,FALSE,,FALSE,0,,NS
 1008,1008,7/24/2018,Default,Default,Default,,Permanent,11:15,,19:18,,Absent,A,0,0,0,0,FALSE,,FALSE,0,,NS
 1009,1009,7/24/2018,Default,Default,Default,,Permanent,13:20,,20:18,,Absent,A,0,0,0,0,FALSE,,FALSE,0,,NS

@@ -52,7 +52,7 @@ if (isset($_POST["UploadAt"])) {
                     // $interval = $d2->diff($d1);
 
                     $diff = strval(abs($endtime - $starttime));
-                    $ot = 
+                    $ot = (abs($endtime - $starttime)) - 12;
                     //echo 'Login Time : ' . date('H:i:s', $loginTime) . '<br>';
                     //echo ($diff < 0) ? 'Late!' : 'Right time!';
                     // echo '<br>';
