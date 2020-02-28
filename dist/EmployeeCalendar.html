@@ -1,0 +1,219 @@
+<div id="header">
+</div>
+<div id="layoutSidenav">
+    <div id="sidenav">
+    </div>
+    <div id="layoutSidenav_content">
+        <main>
+            <!-- <br />
+            <h2 align="center"><a href="#">Employee Calendar</a></h2>
+            <br /> -->
+            <div class="container">
+                <div style="margin-top:10px;" id="calendar"></div>
+            </div>
+        </main>
+        <div id="footer"></div>
+    </div>
+</div>
+
+
+<!-- Employee Modal -->
+
+<div class="modal fade" id="myModal">
+    <form method="post" action="ImportEmpExcel.php" enctype="multipart/form-data">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title">Import Excel Data </h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <!-- Modal body -->
+                <div class="modal-body">
+                    <b>Input Excel File...!!!</b><br>
+                    <input type="file" name="file" />
+                    <br>
+
+                </div>
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                    <input class="btn btn-success" type="submit" name="Upload" value="Upload" style="float:right;" />
+                </div>
+
+            </div>
+        </div>
+    </form>
+</div>
+
+<!-- Attandance Modal -->
+
+<div class="modal fade" id="AttendanceModal">
+    <form method="post" action="ImportAttendanceExcel.php" enctype="multipart/form-data">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title">Import Excel Data </h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <!-- Modal body -->
+                <div class="modal-body">
+                    <b>Input Excel File...!!!</b><br>
+                    <input type="file" name="file" />
+                    <br>
+
+                </div>
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                    <input class="btn btn-success" type="submit" name="UploadAt" value="Upload" style="float:right;" />
+                </div>
+
+            </div>
+        </div>
+    </form>
+</div>
+
+
+
+<!-- Leave Modal -->
+
+<div class="modal fade" id="leaveModal">
+    <form method="post" action="ImportLeaveExcel.php" enctype="multipart/form-data">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title">Import Excel Data </h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <!-- Modal body -->
+                <div class="modal-body">
+                    <b>Input Excel File...!!!</b><br>
+                    <input type="file" name="file" />
+                    <br>
+
+                </div>
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                    <input class="btn btn-success" type="submit" name="UploadLeave" value="Upload"
+                        style="float:right;" />
+                </div>
+
+            </div>
+        </div>
+    </form>
+</div>
+
+
+<script src="https://code.jquery.com/jquery-3.4.1.min.js" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"
+    crossorigin="anonymous"></script>
+<script src="js/scripts.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
+<script src="assets/demo/chart-area-demo.js"></script>
+<script src="assets/demo/chart-bar-demo.js"></script>
+<script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js" crossorigin="anonymous"></script>
+<script src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js" crossorigin="anonymous"></script>
+<script src="assets/demo/datatables-demo.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/fullcalendar.css" />
+<!-- <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha.6/css/bootstrap.css" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script> -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/fullcalendar.min.js"></script>
+<script>
+    $(function () {
+        $("#header").load("Header.html");
+        $("#sidenav").load("EmpSideNav.html");
+        $("#footer").load("Footer.html");
+        //var sessName = '<?php echo $_SESSION["ID"]?>';
+        //alert("<?php $_SESSION['ID'] ?>");
+    });
+</script>
+<script>
+
+    $(document).ready(function () {
+        var event_array = [];
+        FetchEventAndRenderCalendar();
+        function FetchEventAndRenderCalendar() {
+            events = [];
+            $.ajax({
+                url: "load.php",
+                type: "GET",
+                //dataType: "json",
+                success: function (data) {
+                    var obj = $.parseJSON(data);
+                    //alert(obj[0]["start"]);
+                    // $.each(obj, function () {
+                    //     event_array.push({
+                    //         userid: this["title"],
+                    //         start: moment(this["start"],"MM/DD/YY")
+                    //         //end: this["end"]
+                    //     });
+                    // })
+                    //alert($("[data-date]='2020-01-26'").prop("class"));
+                    //alert($("td[class=fc-day fc-widget-content fc-fri fc-past]").prop("data-date"));
+
+                    GenerateCalendar(event_array);
+                    //alert($("td.fc-day.fc-widget-content.fc-fri.fc-past").attr("data-date"));
+                    $.each(obj, function () {
+                        
+
+                        //alert(this["start"]+"   "+$("td.fc-day.fc-widget-content").attr("data-date"));
+                        if ($("td.fc-day.fc-widget-content").attr("data-date") == this["start"]) {
+
+                            $("td.fc-day.fc-widget-content").html("Absent");
+                        } else {
+                            $("td.fc-day.fc-widget-content").html("<b><p style='color:black; margin:50%' font-size:40px;>P</p></b>");
+
+                           // $("td.fc-day.fc-widget-content").css('background-color','#e6ffe6');
+                        }
+                        $("td.fc-day.fc-widget-content.fc-thu").html("<b><p style='color:black; margin:50%' font-size:40px;>WO</p></b>");
+                        //$("td.fc-day.fc-widget-content.fc-thu").css('background-color', '#ff6666');
+                    })
+                },
+                error: function (error) {
+                    alert(error);
+                }
+            });
+        }
+        function GenerateCalendar(event_array) {
+            $("#calendar").fullCalendar({
+                defaultDate: new Date(),
+                timeFormat: 'h(:mm)a',
+                header: {
+                    left: 'prev,next today',
+                    center: 'title',
+                    right: 'month,basicWeek,basicDay,agenda'
+                },
+                eventLimit: true,
+                eventColor: '#378006',
+                events: event_array,
+
+            });
+        }
+
+        // var calendar = $('#calendar').fullCalendar({
+        //     header: {
+        //         left: 'prev,next today',
+        //         center: 'title',
+        //         right: 'month,basicWeek,basicDay'
+        //     },
+        //     navLinks: true, // can click day/week names to navigate views
+        //     editable: true,
+        //     eventLimit: true,
+        //     events: "load.php",
+        //     displayEventTime: false,
+        //     eventRender: function (event, element, view) {
+        //         if (event.allDay === 'true') {
+        //             event.allDay = true;
+        //         } else {
+        //             event.allDay = false;
+        //         }
+        //     }
+
+        // });
+    });
+
+</script>

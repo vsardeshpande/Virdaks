@@ -2,10 +2,10 @@
 include("Config.php");
 session_start();
 $sessionid = '';
-if(isset($_SESSION["ID"])){
-    $sessionid = $_SESSION["ID"];
+if(isset($_SESSION["UN"])){
+    $sessionid = $_SESSION["UN"];
 }else{
-    $sessionid = 'na';
+    $sessionid = 'UN';
 }
 echo $sessionid;
 ?>
