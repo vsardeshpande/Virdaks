@@ -35,12 +35,13 @@ if (isset($_POST["Upload"])) {
                     $Company = 'XYZ';
                 }
 
-                
+
 
                 if ($cnt != 0) {
                     $query = "INSERT INTO employee(EmployeeCode,EmployeeName,DeviceCode,Company,Department,Location,Designation,Grade,Team,Category,EmploymentType,Gender,DOJ,CardNumber,ShiftRoaster,Status)VALUES('$EmployeeCode','$EmployeeName','$DeviceCode','$Company','$Department','$Location','$Designation','$Grade','$Team','$Category','$EmployemntType','$Gender','$DOJ','$CardNumber','$ShiftRoaster','$Status')";
+                    $query1 = "INSERT INTO employee_salary_details(EmployeeCode,Company)VALUES('$EmployeeCode','$Company')";
                     // echo $query;
-                    if (mysqli_query($con, $query)) {
+                    if ((mysqli_query($con, $query)) and (mysqli_query($con, $query1))) {
                         //echo "Success ";
                         $cnt = $cnt + 1;
                     } else {
@@ -53,11 +54,15 @@ if (isset($_POST["Upload"])) {
             }
             fclose($handle);
             echo "<script type='text/javascript'>alert('Done')</script>";
-            header("refresh:0;url=index.html");
+            header("refresh:0;url=Admin.html");
         } else {
-            echo "Select only csv file";
+
+            header("refresh:0;url=Admin.html");
+            echo "<script type='text/javascript'>alert('Select only CSV File')</script>";
         }
     } else {
-        echo "Select file";
+
+        header("refresh:0;url=Admin.html");
+        echo "<script type='text/javascript'>alert('Please select file first')</script>";
     }
 }

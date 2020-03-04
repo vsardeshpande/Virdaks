@@ -5,7 +5,7 @@ $sessionid = '';
 if(isset($_SESSION["UN"])){
     $sessionid = $_SESSION["UN"];
 }else{
-    $sessionid = 'UN';
+    $sessionid = 'na';
 }
 echo $sessionid;
 ?>

@@ -34,21 +34,23 @@
                                 <div class="card-body">
                                     <form action="AddEmployee.php" method="POST">
                                         <div class="form-row">
-                                            <div class="col-md-10">
+                                            <div class="col-md-8">
                                                 <div class="form-group"><label class="small mb-1" for="EmpCode">Employee
                                                         Code</label><input class="form-control py-4" name="EmpCode"
-                                                        type="text" placeholder="" id="EmpCode" /></div>
+                                                        type="text" placeholder="" id="EmpCode" readonly /></div>
+                                                <div class="form-group"><label class="small mb-1" for="EmpName">Employee
+                                                        Name</label><input class="form-control py-4" name="EmpName"
+                                                        type="text" placeholder="" id="EmpName" disabled /></div>
                                             </div>
-                                            <div class="col-md-2">
-                                                <button style="height: 50%; width: 100%; margin-top: 30%;" type="button"
-                                                    id="searchID" name="searchID"><i class="fa fa-search"></i></button>
+                                            <div class="col-md-4">
+                                                <img src="../img/prof.jpeg" id="profpic" class="img-thumbnail"
+                                                    alt="Profile pic" style="max-width: 200px; float: right;">
+                                                <input type="file" id="imgupload" name="img" style="max-width: 100%; float: right ;" />
                                             </div>
                                         </div>
                                         <div class="form-row">
                                             <div class="col-md-12">
-                                                <div class="form-group"><label class="small mb-1" for="EmpName">Employee
-                                                        Name</label><input class="form-control py-4" name="EmpName"
-                                                        type="text" placeholder="" id="EmpName" disabled /></div>
+
                                             </div>
                                         </div>
                                         <div class="form-row">
@@ -97,6 +99,29 @@
                                                         for="Gender">Gender</label><input class="form-control py-4"
                                                         name="Gender" type="text" placeholder="" id="Gender" readonly />
                                                 </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-row">
+                                            <div class="col-md-3">
+                                                <div class="form-group"><label class="small mb-1" for="PL">
+                                                        PL</label><input class="form-control" id="PL" type="text"
+                                                        placeholder="PL" disabled /></div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <div class="form-group"><label class="small mb-1" for="SL">
+                                                        SL</label><input class="form-control" id="SL" type="text"
+                                                        placeholder="SL" disabled /></div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <div class="form-group"><label class="small mb-1" for="CL">
+                                                        CL</label><input class="form-control" id="CL" type="text"
+                                                        placeholder="CL" disabled /></div>
+
+                                            </div>
+                                            <div class="col-md-3">
+                                                <div class="form-group"><label class="small mb-1" for="OL">
+                                                        OL</label><input class="form-control" id="OL" type="text"
+                                                        placeholder="OL" disabled /></div>
                                             </div>
                                         </div>
                                     </form>
@@ -201,58 +226,79 @@
             $("#header").load("Header.html");
             $("#sidenav").load("EmpSideNav.html");
             $("#footer").load("Footer.html");
+
             //var sessName = '<?php echo $_SESSION["ID"]?>';
             //alert("<?php $_SESSION['ID'] ?>");
         });
         $('document').ready(function () {
-            $("#searchID").on("click", function () {
-                $.ajax({
-                    url: "ViewEmpProfile.php",
-                    method: "",
-                    data: { EmpCode: $("#EmpCode").val() },
-                    success: function (data) {
-                        //alert(data);
-                        if (data == "null") {
-                            alert("Record Not Found ... !!!");
-                        } else {
-                            var obj = $.parseJSON(data);
-                            $("#EmpName").val(obj["EmployeeName"]);
-                            $("#Company").val(obj["Company"]);
-                            $("#Email").val(obj["Email"]);
-                            $("#DOB").val(obj["DOB"]);
-                            $("#DOJ").val(obj["DOJ"]);
-                            $("#Designation").val(obj["Designation"]);
-                            $("#EmpType").val(obj["EmploymentType"]);
-                            $("#Gender").val(obj["Gender"]);
+            var im = "";
+            $.ajax({
+                url: "getEmpID.php",
+                success: function (data) {
+                    $("#EmpCode").val(data);
+                    $.ajax({
+                        url: "ViewEmpProfile.php",
+                        method: "",
+                        data: { EmpCode: $("#EmpCode").val() },
+                        success: function (data) {
+                            //alert(data);
+                            if (data == "null") {
+                                alert("Record Not Found ... !!!");
+                            } else {
+                                //alert(obj["picture"]);
+                                var obj = $.parseJSON(data);
+                                $("#EmpName").val(obj["EmployeeName"]);
+                                $("#Company").val(obj["Company"]);
+                                $("#Email").val(obj["Email"]);
+                                $("#DOB").val(obj["DOB"]);
+                                $("#DOJ").val(obj["DOJ"]);
+                                $("#Designation").val(obj["Designation"]);
+                                $("#EmpType").val(obj["EmploymentType"]);
+                                $("#Gender").val(obj["Gender"]);
+                                $("#PL").val(obj["PL"]);
+                                $("#SL").val(obj["SL"]);
+                                $("#CL").val(obj["CL"]);
+                                $("#OL").val(obj["OL"]);
+                                $("#profpic").attr("src",obj["picture"])
+                            }
+                            //alert(obj);
                         }
-                        //alert(obj);
-                    }
-                });
-            });
-
+                    });
+                }
+            })
+            
             $("#Edit").on("click", function () {
+                //alert($("#imgupload").val());
                 enable();
             });
-            $("#Update").on("click", function(){
+            $("#imgupload").change(function(){
+                alert($(this).val());
+                im = URL.createObjectURL(event.target.files[0]);
+                $("#profpic").attr("src",URL.createObjectURL(event.target.files[0]))
+                
+            });
+            $("#Update").on("click", function () {
+                alert("aaa"+im);
                 $.ajax({
-                    url : "UpdateEmpProfile.php",
-                    method : "POST",
-                    data : {
-                        EmpCode : $("#EmpCode").val(),
-                        EmpName : $("#EmpName").val(),
-                        Company : $("#Company").val(),
-                        Email : $("#Email").val(),
-                        DOB : $("#DOB").val(),
-                        Designation :  $("#Designation").val(),
-                        EmpType : $("#EmpType").val(),                     
+                    url: "UpdateEmpProfile.php",
+                    method: "POST",
+                    data: {
+                        EmpCode: $("#EmpCode").val(),
+                        EmpName: $("#EmpName").val(),
+                        Company: $("#Company").val(),
+                        Email: $("#Email").val(),
+                        DOB: $("#DOB").val(),
+                        Designation: $("#Designation").val(),
+                        EmpType: $("#EmpType").val(),
+                        ImgPath : im,
                     },
-                    success : function(data){
+                    success: function (data) {
                         alert(data);
                         disable();
                     }
                 });
             });
-            $("#Cancel").on("click",function(){
+            $("#Cancel").on("click", function () {
                 disable();
             })
             function enable() {

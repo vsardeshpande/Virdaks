@@ -12,7 +12,7 @@ $Count = $_REQUEST["Count"];
 $sql = "INSERT INTO employee_leave_details (EmployeeCode, EmployeeName, LeaveType, DateFrom, DateTo, Total, Reasone) VALUES (".$EmpCode.",'".$EmpName."','".$LeaveType."','".$From."','".$To."','".$Count."','".$Reasone."') ";
 // $result = mysqli_query($con,$sql);
 if( mysqli_query($con,$sql)){
-    echo "Done".$sql;
+    echo "Done";
 }else{
-    echo "Failed".$sql;
+    echo "Failed";
 }

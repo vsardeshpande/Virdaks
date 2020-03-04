@@ -143,22 +143,23 @@
                 type: "GET",
                 //dataType: "json",
                 success: function (data) {
+                    //alert(data);
                     var obj = $.parseJSON(data);
                     //alert(obj[0]["start"]);
-                    // $.each(obj, function () {
-                    //     event_array.push({
-                    //         userid: this["title"],
-                    //         start: moment(this["start"],"MM/DD/YY")
-                    //         //end: this["end"]
-                    //     });
-                    // })
+                    $.each(obj, function () {
+                        event_array.push({
+                            userid: this["title"],
+                            start: moment(this["start"], "MM/DD/YY")
+                            //end: this["end"]
+                        });
+                    })
                     //alert($("[data-date]='2020-01-26'").prop("class"));
                     //alert($("td[class=fc-day fc-widget-content fc-fri fc-past]").prop("data-date"));
 
                     GenerateCalendar(event_array);
                     //alert($("td.fc-day.fc-widget-content.fc-fri.fc-past").attr("data-date"));
                     $.each(obj, function () {
-                        
+
 
                         //alert(this["start"]+"   "+$("td.fc-day.fc-widget-content").attr("data-date"));
                         if ($("td.fc-day.fc-widget-content").attr("data-date") == this["start"]) {
@@ -167,10 +168,10 @@
                         } else {
                             $("td.fc-day.fc-widget-content").html("<b><p style='color:black; margin:50%' font-size:40px;>P</p></b>");
 
-                           // $("td.fc-day.fc-widget-content").css('background-color','#e6ffe6');
+                            $("td.fc-day.fc-widget-content").css('background-color', '#e6ffe6');
                         }
                         $("td.fc-day.fc-widget-content.fc-thu").html("<b><p style='color:black; margin:50%' font-size:40px;>WO</p></b>");
-                        //$("td.fc-day.fc-widget-content.fc-thu").css('background-color', '#ff6666');
+                        $("td.fc-day.fc-widget-content.fc-thu").css('background-color', '#ff6666');
                     })
                 },
                 error: function (error) {

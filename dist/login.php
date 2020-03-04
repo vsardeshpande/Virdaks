@@ -14,6 +14,7 @@ $count =  mysqli_num_rows($result);
 if($count > 0){
     if($data["UT"] == "Admin"){
         $_SESSION["ID"] = $data["UT"];
+        $_SESSION["UN"] = $data["UserName"];
         echo "Admin.html";
     }else if($data["UT"] == "Employee"){
         $_SESSION["ID"] = $data["UT"];

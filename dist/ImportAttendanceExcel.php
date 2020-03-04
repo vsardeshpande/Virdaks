@@ -52,7 +52,7 @@ if (isset($_POST["UploadAt"])) {
                     // $interval = $d2->diff($d1);
 
                     $diff = strval(abs($endtime - $starttime));
-                    $ot = (abs($endtime - $starttime)) - 12;
+                    $ot =  ($endtime - $starttime) - 12;
                     //echo 'Login Time : ' . date('H:i:s', $loginTime) . '<br>';
                     //echo ($diff < 0) ? 'Late!' : 'Right time!';
                     // echo '<br>';
@@ -61,7 +61,7 @@ if (isset($_POST["UploadAt"])) {
 
                     if ($cnt != 0) {
 
-                        $query = "INSERT INTO attendence(EmployeeCode,AttendanceDate,InTime,InDeviceName,OutTime,OutDeviceName,Status,StatusCode,Duration,LateBy,EarlyBy,Overtime,IsOnLeave,LeaveType,IsOnOutDoorEntries,OutDoorDuration,PunchRecords,ShiftName)VALUES('$EmployeeCode','$AttendanceDate','$InTime','$InDeviceName','$OutTime','$OutDeviceName','$Status','$StatusCode','$diff','$LateBy','$EarlyBy','$Overtime','$IsOnLeave','$LeaveType','$IsOnOutDoorEntries','$OutDoorDuration','$PuchRecords','$ShiftName')";
+                        $query = "INSERT INTO attendence(EmployeeCode,AttendanceDate,InTime,InDeviceName,OutTime,OutDeviceName,Status,StatusCode,Duration,LateBy,EarlyBy,Overtime,IsOnLeave,LeaveType,IsOnOutDoorEntries,OutDoorDuration,PunchRecords,ShiftName)VALUES('$EmployeeCode','$AttendanceDate','$InTime','$InDeviceName','$OutTime','$OutDeviceName','$Status','$StatusCode','$diff','$LateBy','$EarlyBy','$ot','$IsOnLeave','$LeaveType','$IsOnOutDoorEntries','$OutDoorDuration','$PuchRecords','$ShiftName')";
                         if (mysqli_query($con, $query)) {
                             $flag += 1;
                             //echo "Success ".$flag;
