@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <title>Dashboard - SB Admin</title>
+    <link href="css/styles.css" rel="stylesheet" />
+    <link href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css" rel="stylesheet"
+        crossorigin="anonymous" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/js/all.min.js"
+        crossorigin="anonymous"></script>
+</head>
+
+<body class="sb-nav-fixed">
+    <div id="header">
+    </div>
+    <div id="layoutSidenav">
+        <div id="sidenav">
+        </div>
+        <div id="layoutSidenav_content">
+            <main>
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-sm-12"><br>
+                            <div class="card">
+                                <div class="card-header bg-info">
+                                    <h3 style="color: #FFFFFF;">Generate Salary</h3>
+
+                                </div>
+                                <div class="card-body">
+                                    <!-- <form> -->
+                                    <div class="row">
+                                        <div class="col">
+                                            <select id="salMonth" class="form-control">
+                                                <option value="1">January</option>
+                                                <option value="2">February</option>
+                                                <option value="3">March</option>
+                                                <option value="4">April</option>
+                                                <option value="5">May</option>
+                                                <option value="6">June</option>
+                                                <option value="7">July</option>
+                                                <option value="8">August</option>
+                                                <option value="9">September</option>
+                                                <option value="10">October</option>
+                                                <option value="11">November</option>
+                                                <option value="12">December</option>
+                                            </select>
+                                        </div>
+                                        <div class="col">
+                                            <input type="text" class="form-control" id="salYear"
+                                                placeholder="Enter Year" />
+                                        </div>
+                                        <div class="col">
+                                            <!-- <input type="password" class="form-control" placeholder="Enter password"
+                                                    name="pswd"> -->
+                                            <button id="Generate" value="Generate"
+                                                class="btn btn-success">Generate</button>
+                                        </div>
+                                    </div>
+                                    <!-- </form> -->
+                                    <div id="Records"></br>
+
+                                    </div>
+                                </div>
+                                <div class="card-footer">Footer</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+            <div id="footer"></div>
+        </div>
+    </div>
+
+
+    <!-- Employee Modal -->
+
+    <div class="modal fade" id="myModal">
+        <form method="post" action="ImportEmpExcel.php" enctype="multipart/form-data">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <!-- Modal Header -->
+                    <div class="modal-header">
+                        <h4 class="modal-title">Import Excel Data </h4>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+                    <!-- Modal body -->
+                    <div class="modal-body">
+                        <b>Input Excel File...!!!</b><br>
+                        <input type="file" name="file" />
+                        <br>
+
+                    </div>
+                    <!-- Modal footer -->
+                    <div class="modal-footer">
+                        <input class="btn btn-success" type="submit" name="Upload" value="Upload"
+                            style="float:right;" />
+                    </div>
+
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <!-- Attandance Modal -->
+
+    <div class="modal fade" id="AttendanceModal">
+        <form method="post" action="ImportAttendanceExcel.php" enctype="multipart/form-data">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <!-- Modal Header -->
+                    <div class="modal-header">
+                        <h4 class="modal-title">Import Excel Data </h4>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+                    <!-- Modal body -->
+                    <div class="modal-body">
+                        <b>Input Excel File...!!!</b><br>
+                        <input type="file" name="file" />
+                        <br>
+
+                    </div>
+                    <!-- Modal footer -->
+                    <div class="modal-footer">
+                        <input class="btn btn-success" type="submit" name="UploadAt" value="Upload"
+                            style="float:right;" />
+                    </div>
+
+                </div>
+            </div>
+        </form>
+    </div>
+
+
+
+    <!-- Leave Modal -->
+
+    <div class="modal fade" id="leaveModal">
+        <form method="post" action="ImportLeaveExcel.php" enctype="multipart/form-data">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <!-- Modal Header -->
+                    <div class="modal-header">
+                        <h4 class="modal-title">Import Excel Data </h4>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+                    <!-- Modal body -->
+                    <div class="modal-body">
+                        <b>Input Excel File...!!!</b><br>
+                        <input type="file" name="file" />
+                        <br>
+
+                    </div>
+                    <!-- Modal footer -->
+                    <div class="modal-footer">
+                        <input class="btn btn-success" type="submit" name="UploadLeave" value="Upload"
+                            style="float:right;" />
+                    </div>
+
+                </div>
+            </div>
+        </form>
+    </div>
+
+
+
+
+    <!-- Salary Modal -->
+
+    <div class="modal fade" id="salModal">
+        <form method="post" action="ImportSalaryExcel.php" enctype="multipart/form-data">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <!-- Modal Header -->
+                    <div class="modal-header">
+                        <h4 class="modal-title">Import Excel Data </h4>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+                    <!-- Modal body -->
+                    <div class="modal-body">
+                        <b>Input Excel File...!!!</b><br>
+                        <input type="file" name="file" />
+                        <br>
+
+                    </div>
+                    <!-- Modal footer -->
+                    <div class="modal-footer">
+                        <input class="btn btn-success" type="submit" name="UploadSal" value="Upload"
+                            style="float:right;" />
+                    </div>
+
+                </div>
+            </div>
+        </form>
+    </div>
+
+
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"
+        crossorigin="anonymous"></script>
+    <script src="js/scripts.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
+    <script src="assets/demo/chart-area-demo.js"></script>
+    <script src="assets/demo/chart-bar-demo.js"></script>
+    <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js" crossorigin="anonymous"></script>
+    <script src="assets/demo/datatables-demo.js"></script>
+    <script>
+        $(function () {
+            $("#header").load("Header.html");
+            $("#sidenav").load("SideNav.html");
+            $("#footer").load("Footer.html");
+            //var sessName = '<?php echo $_SESSION["ID"]?>';
+            //alert("<?php $_SESSION['ID'] ?>");
+        });
+        $("document").ready(function () {
+            $("#Generate").click(function () {
+                //alert($("#salMonth").val());
+                $.ajax({
+                    url: "GenerateSalary.php",
+                    method: "POST",
+                    data: { mon: $("#salMonth").val(), year: $("#salYear").val() },
+                    success: function (data) {
+                        //alert(data);
+                        var result = $.parseJSON(data);
+
+                        var string = "<table class='table table-striped>'";
+                        string += "<tr><th>Employee Code</th>";
+                        string += "<th>Attendance Date</th>";
+                        string += "<th>Duration</th>";
+                        string += "<th>Overtime</th>";
+                        string += "<th>HRA</th></tr>";
+                        /* from result create a string of data and append to the div */
+
+                        $.each(result, function (key, value) {
+                            string += "<tr>";
+                            string += "<td>"+value["EmployeeCode"]+"</td>";
+                            string += "<td>"+value["AttendanceDate"]+"</td>";
+                            string += "<td>"+value["Duration"]+"</td>";
+                            string += "<td>"+value["Overtime"]+"</td>";
+                            string += "<td>"+value["HRA"]+"</td>";
+                            string += "</tr>";
+                        });
+                        string += "</table>";
+                        //alert(string);
+                        $("#Records").append(string);
+
+                    }
+                });
+            });
+        });
+    </script>
+
+</body>
+
+</html>
